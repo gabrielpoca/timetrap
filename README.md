@@ -96,6 +96,15 @@ You can edit entries that aren't running using `edit`'s `--id` or `-i` flag.
         ---------------------------------------------------------
         Total                                    1:18:50
 
+You ca enter god mode and edit anything from the selected entries in a text file
+
+    $ t display --start yesterday
+    Timesheet: coding
+        Day                Start      End        Duration   Notes
+        Sun Nov 28, 2010   12:26:10 -            0:00:03    document timetrap
+                                                 0:00:03
+        ---------------------------------------------------------
+        Total                                    0:00:03
 
 ### Natural Language Times
 
@@ -406,6 +415,10 @@ Commands
 
   usage: ``t month [--ids] [--start MONTH] [--format FMT] [TIMESHEET | all]``
 
+**god**
+  Display the selected entries in an external text editor, saving every change back to the database.
+
+  usage: ``t god [--start DATE] [--end DATE] [SHEET | all | full]``
 
 ### Global Options
 

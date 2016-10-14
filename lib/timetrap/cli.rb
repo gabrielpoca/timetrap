@@ -1,3 +1,5 @@
+require 'csv'
+
 module Timetrap
   module CLI
     extend Helpers
@@ -100,6 +102,11 @@ COMMAND is one of:
       last active sheet.
     usage: t sheet [TIMESHEET]
 
+  * god - Edit selected entries in an external editor
+    usage: t god [--start DATE] [--end DATE] [SHEET | all | full]
+    -s, --start <date:qs>     Include entries that start on this date or later
+    -e, --end <date:qs>       Include entries that start on this date or earlier
+
   * today - Shortcut for display with start date as the current day
     usage: t today [--ids] [--format FMT] [SHEET | all]
 
@@ -193,6 +200,24 @@ COMMAND is one of:
     # currently just sets whether output should be rounded to 15 min intervals
     def set_global_options
       Timetrap::Entry.round = true if args['-r']
+    end
+
+    def god
+      entries = selected_entries
+      if entries == []
+        warn 'No entries were selected to display.'
+      else
+        editable_text = load_formatter('god').new(Array(entries)).output
+        edited_text = get_note_from_external_editor(editable_text)
+
+        updated_entries = CSV.parse(edited_text).drop(1).map do |row|
+          entry = Entry[row[0]]
+          entry.update start: row[1], end: row[2], note: row[3], sheet: row[4]
+          entry
+        end
+
+        puts format_entries(updated_entries)
+      end
     end
 
     def archive
