@@ -96,7 +96,7 @@ You can edit entries that aren't running using `edit`'s `--id` or `-i` flag.
         ---------------------------------------------------------
         Total                                    1:18:50
 
-You ca enter god mode and edit anything from the selected entries in a text file
+You can enter god mode and edit anything from the selected entries in a text file
 
     $ t display --start yesterday
     Timesheet: coding
@@ -471,7 +471,6 @@ See ``t configure`` for details.  Currently supported options are:
                means no external editor is used. Please see the section below
                on Notes Editing for tips on using non-terminal based editors.
                Example: note_editor: "vim"
-
 
 ### Autocomplete
 
